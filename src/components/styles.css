@@ -2,6 +2,14 @@
   box-sizing: border-box;
 }
 
+/* Обертка для приложения */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Форма */
 form {
   margin-bottom: 52px;
@@ -50,7 +58,15 @@ input[type=submit] {
   cursor: pointer;
 }
 
+
+
+
 /* Карточка пиццы*/
+
+.container {
+  max-width: 520px;
+}
+
 .pizza {
   background: white;
   border: 1px solid #ededed;

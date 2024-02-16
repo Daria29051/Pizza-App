@@ -1,14 +1,27 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import Pizza from '../models/Pizza';
+import { EditPizzaForm } from './EditPizzaForm';
 import { AiFillEdit } from "react-icons/ai";
 import { AiFillDelete } from "react-icons/ai";
 
 
 interface SinglePizzaProps {
     pizza : Pizza;
+    updatePizza: (newPizza : Pizza )=> void;
+    deletePizza : (id : number) => void;
 }
 
-export const SinglePizza : FC<SinglePizzaProps> = ({pizza}) => {
+export const SinglePizza : FC<SinglePizzaProps> = ({pizza, updatePizza, deletePizza}) => {
+    const [edit, setEdit] = useState<boolean>(false);
+
+    const handleToggleEdit = ()=> {
+        setEdit(!edit);
+    }
+
+    const handleDelete = ()=> {
+        deletePizza(pizza.id);
+    }
+
   return (
     <div className='pizza'>
         <img src={`/images/${pizza.img}`} alt={pizza.title}/>
@@ -16,9 +29,14 @@ export const SinglePizza : FC<SinglePizzaProps> = ({pizza}) => {
         <span>{pizza.price} руб.</span>
 
         <div className='pizza-controls'>
-        <AiFillEdit />
-        <AiFillDelete />
+        <AiFillEdit onClick ={handleToggleEdit} />
+        <AiFillDelete onClick = {handleDelete} />
         </div>
+
+        {edit  ? <EditPizzaForm
+        data={pizza}
+        updatePizza={updatePizza}
+        handleToggleEdit = {handleToggleEdit}/> : null}
     </div>
   )
 }

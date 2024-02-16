@@ -15,13 +15,24 @@ const addPizza = (newPizza: Pizza)=> {
   setPizzasList([...pizzasList, newPizza]);
 }
 
+const updatePizza = (newPizza: Pizza) => {
+  setPizzasList(pizzasList.map((pizza)=> (pizza.id === newPizza.id ? newPizza : pizza)))
+}
+
+const deletePizza = (id: number) => {
+  const newPizzasList = pizzasList.filter((pizza)=> pizza.id !==id);
+  setPizzasList(newPizzasList);
+}
 console.log(pizzasList);
   
   return (
-   <div className='wrap'>
+   <div className='wrapper'>
    <span className='heading'>Наша пиццерия</span>
    <AddPizzaForm addPizza={addPizza}/>
-   <DisplayPizzas pizzasList={pizzasList}/>
+   <DisplayPizzas
+   pizzasList={pizzasList}
+   updatePizza={updatePizza}
+   deletePizza={deletePizza}/>
    </div>
   );
 }
